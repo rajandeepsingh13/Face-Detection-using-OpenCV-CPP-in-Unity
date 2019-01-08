@@ -1,16 +1,16 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
 
 public class OpenCVFaceDetection : MonoBehaviour {
 
-    public static List<Vector2> NormalizedFacePositions { get; private set; }
+    public static List<Vector3> NormalizedFacePositions { get; private set; }
     public static Vector2 CameraResolution;
 
-    /// <summary>
-    /// Downscale factor to speed up detection.
-    /// </summary>
+    public float DepthDevider = 10f;
+    public float DepthAdder = 10f;
+
     private const int DetectionDownScale = 1;
 
     private bool _ready;
@@ -37,7 +37,7 @@ public class OpenCVFaceDetection : MonoBehaviour {
 
         CameraResolution = new Vector2(camWidth, camHeight);
         _faces = new CvCircle[_maxFaceDetectCount];
-        NormalizedFacePositions = new List<Vector2>();
+        NormalizedFacePositions = new List<Vector3>();
         OpenCVInterop.SetScale(DetectionDownScale);
         _ready = true;
     }
@@ -68,12 +68,11 @@ public class OpenCVFaceDetection : MonoBehaviour {
         NormalizedFacePositions.Clear();
         for (int i = 0; i < detectedFaceCount; i++)
         {
-            NormalizedFacePositions.Add(new Vector2((_faces[i].X * DetectionDownScale) / CameraResolution.x, 1f - ((_faces[i].Y * DetectionDownScale) / CameraResolution.y)));
+            NormalizedFacePositions.Add(new Vector3((_faces[i].X * DetectionDownScale) / CameraResolution.x, 1f - ((_faces[i].Y * DetectionDownScale) / CameraResolution.y), 1f - (_faces[i].Radius*DetectionDownScale)/DepthDevider + DepthAdder));
         }
     }
 }
 
-// Define the functions which can be called from the .dll.
 internal static class OpenCVInterop
 {
     [DllImport("OpenCVThomasPart2Try1")]
@@ -89,7 +88,6 @@ internal static class OpenCVInterop
     internal unsafe static extern void Detect(CvCircle* outFaces, int maxOutFacesCount, ref int outDetectedFacesCount);
 }
 	
-// Define the structure to be sequential and with the correct byte size (3 ints = 4 bytes * 3 = 12 bytes)
 [StructLayout(LayoutKind.Sequential, Size = 12)]
 public struct CvCircle
 {
