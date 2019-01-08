@@ -1,0 +1,8 @@
+﻿  Source.cpp
+d:\vsprojects\opencvthomaspart2try1\opencvthomaspart2try1\source.cpp(33): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+d:\vsprojects\opencvthomaspart2try1\opencvthomaspart2try1\source.cpp(34): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+     Creating library D:\VSProjects\OpenCVThomasPart2Try1\x64\Release\OpenCVThomasPart2Try1.lib and object D:\VSProjects\OpenCVThomasPart2Try1\x64\Release\OpenCVThomasPart2Try1.exp
+  Generating code
+  All 70 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  OpenCVThomasPart2Try1.vcxproj -> D:\VSProjects\OpenCVThomasPart2Try1\x64\Release\OpenCVThomasPart2Try1.dll
