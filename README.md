@@ -4,7 +4,7 @@ Face Detection implemented in OpenCV in CPP by creating a plugin (.dll) and expo
 
 This repository consists of both the Unity Project as well as the OpenCV Visual Studio Project.
 
-I referred to the links mentioned bellow to create this.
+I referred to the links mentioned below to create this.
 
 # Reference Links
 
